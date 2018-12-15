@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>HLZY</title>
+    {% include 'base/head.html' %}
+</head>
+<body>
+{% include 'base/header.html' %}
+<div id="container">
+    {% include 'base/links.html' %}
+    <div class="content">
+        <!-- This loops through the paginated posts -->
+        <ul class="posts">
+
+            {% for post in posts %}
+            <li>
+                <small class="datetime muted">{{ post.create_time }}</small>
+                <a href="/{{ post.path_name }}.html">{{ post.title }}</a>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+{% include 'base/footer.html' %}
+</body>
+</html>
