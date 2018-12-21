@@ -10,7 +10,7 @@ app = Flask(__name__, static_folder='static', instance_relative_config=True)
 app.config.from_pyfile('config.py')
 app.config['JSON_AS_ASCII'] = False
 
-db = SQLAlchemy(app, use_native_unicode="utf8")
+db = SQLAlchemy()
 db.init_app(app)
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 engine.connect()
