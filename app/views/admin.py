@@ -7,7 +7,7 @@ date: 2016-03-04 11:48 AM
 """
 
 from flask import render_template, request
-from app import app, session
+from app import db, app
 from app.models import Category, Post
 from datetime import *
 
@@ -18,7 +18,7 @@ def admin_index():
         user = request.args.get('user')
 
         if user == app.config['LEIHUNAG_ADMIN_KEY']:
-            categories = session.query(Category).all()
+            categories = Category.query.all()
             return render_template('admin/index.html', categories=categories)
         else:
             return render_template('404.html')
@@ -28,7 +28,7 @@ def admin_index():
         post.path_name = request.values.get("path")
 
         post.category_id = request.values.get("category")
-        category = session.query(Category).filter_by(category_id=post.category_id).first()
+        category = Category.query.filter_by(category_id=post.category_id).first()
         category.post_num += 1
         post.content = request.values.get("content")
 
@@ -38,15 +38,15 @@ def admin_index():
         if exist_path_name(post.path_name):
             return '已经存在此路径的博客'
 
-        session.add(post)
-        session.flush()
-        session.commit()
+        db.session.add(post)
+        db.session.flush()
+        db.session.commit()
         return 'ok'
 
 
 # 判断是否已经存在此博文
 def exist_post(title):
-    post = session.query(Post).filter(Post.title == title).first()
+    post = Post.query.filter(Post.title == title).first()
     if post:
         return True
     else:
@@ -55,7 +55,7 @@ def exist_post(title):
 
 # 是否已经存在此路径
 def exist_path_name(path_name):
-    post = session.query(Post).filter(Post.path_name == path_name).first()
+    post = Post.query.filter(Post.path_name == path_name).first()
     if post:
         return True
     else:
@@ -69,21 +69,21 @@ def save_category(category_name):
     if category_old:
         category = category_old
         category.post_num += 1
-        session.query(Category).filter(Category.category_id == category.category_id).update(
+        Category.query.filter(Category.category_id == category.category_id).update(
             {Category.post_num: category.post_num})
-        session.flush()
+        db.session.flush()
         return category.category_id
     else:
         category.name = category_name
         category.post_num = 1
-        session.add(category)
-        session.flush()
+        db.session.add(category)
+        db.session.flush()
         return category.category_id
 
 
 # 根据category_name查找categories
 def get_categories_by_name(category_name):
-    categories = session.query(Category).filter(Category.name == category_name).all()
+    categories = Category.query.filter(Category.name == category_name).all()
     if len(categories) > 0:
         return categories[0]
     else:

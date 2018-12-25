@@ -1,28 +1,23 @@
 # coding: utf-8
-from sqlalchemy import Column, DateTime, Integer, String, Text, text
-from sqlalchemy.ext.declarative import declarative_base
+from . import db
 
 
-Base = declarative_base()
-metadata = Base.metadata
-
-
-class Category(Base):
+class Category(db.Model):
     __tablename__ = 'category'
 
-    category_id = Column(Integer, primary_key=True)
-    name = Column(String(11), nullable=False, server_default=text("''"))
-    post_num = Column(Integer, nullable=False, server_default=text("'0'"))
+    category_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(11), nullable=False, server_default='')
+    post_num = db.Column(db.Integer, nullable=False, server_default='0')
 
 
-class Post(Base):
+class Post(db.Model):
     __tablename__ = 'post'
 
-    post_id = Column(Integer, primary_key=True)
-    category_id = Column(Integer, nullable=False, server_default=text("'0'"))
-    title = Column(String(30), nullable=False, server_default=text("''"))
-    path_name = Column(String(100), nullable=False, server_default=text("''"))
-    page_view = Column(Integer, nullable=False, server_default=text("'0'"))
-    comment_num = Column(Integer, nullable=False, server_default=text("'0'"))
-    create_time = Column(DateTime)
-    content = Column(Text)
+    post_id = db.Column(db.Integer, primary_key=True)
+    category_id = db.Column(db.Integer, nullable=False, server_default='0')
+    title = db.Column(db.String(30), nullable=False, server_default='')
+    path_name = db.Column(db.String(100), nullable=False, server_default='')
+    page_view = db.Column(db.Integer, nullable=False, server_default='0')
+    comment_num = db.Column(db.Integer, nullable=False, server_default='0')
+    create_time = db.Column(db.DateTime)
+    content = db.Column(db.Text)
