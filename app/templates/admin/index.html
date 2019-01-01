@@ -10,15 +10,22 @@
     <script src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form  method="post">
+<form method="post">
     <input type="text" name="title" placeholder="博客标题">
     <input type="text" name="path" placeholder="博客路径">
     <button type="submit" class="btn btn-primary btn-sm">发表</button>
-    <br>
+    <div>
+        帅气作者:
+        <label class="radio-inline">
+            <input type="radio" name="author" value="HL">HL</label>
+        <label class="radio-inline">
+            <input type="radio" name="author" value="ZY">ZY</label>
+    </div>
     博文分类:
     {% for category in categories %}
-    <label class="radio-inline"><input type="radio"
-                                       name="category" value="{{category.category_id}}">{{category.name}}</label>
+        <label class="radio-inline"><input type="radio"
+                                           name="category" value="{{ category.category_id }}">{{ category.name }}
+        </label>
     {% endfor %}
     <br>
     正文:

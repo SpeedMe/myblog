@@ -16,6 +16,7 @@ class Post(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
     category_id = db.Column(db.Integer, nullable=False, server_default='0')
     title = db.Column(db.String(30), nullable=False, server_default='')
+    author = db.Column(db.String(10), nullable=False, server_default='')
     path_name = db.Column(db.String(100), nullable=False, server_default='')
     page_view = db.Column(db.Integer, nullable=False, server_default='0')
     comment_num = db.Column(db.Integer, nullable=False, server_default='0')

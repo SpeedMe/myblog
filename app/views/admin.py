@@ -28,6 +28,7 @@ def admin_index():
         post.path_name = request.values.get("path")
 
         post.category_id = request.values.get("category")
+        post.author = request.values.get("author")
         category = Category.query.filter_by(category_id=post.category_id).first()
         category.post_num += 1
         post.content = request.values.get("content")
