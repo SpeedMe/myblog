@@ -14,7 +14,7 @@
             {% for post in posts %}
                 <li>
                     <a href="/{{ post.path_name }}.html">{{ post.title }}</a>
-                    <small class="datetime muted">{{ post.author }} & {{ post.create_time }}</small>
+                    <small class="datetime muted">{{ post.author }} | {{ post.create_time }}</small>
                 </li>
             {% endfor %}
 
